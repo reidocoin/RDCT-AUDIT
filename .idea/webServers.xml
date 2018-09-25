@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2df402f9-eead-4228-9252-c3b838c85a8f" name="RDCToken" url="http://ftp.rdctoken.io">
+        <fileTransfer host="ftp.rdctoken.io" port="21" rootFolder="/public_html/audit">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
