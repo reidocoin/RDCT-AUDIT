@@ -1,83 +1,3 @@
-
-<!-- #Top Bar -->
-<section>
-    <!-- Left Sidebar -->
-    <aside id="leftsidebar" class="sidebar">
-        <!-- User Info
-        <div class="user-info">
-            <div class="image">
-                <img src="images/user.png" width="48" height="48" alt="User" />
-            </div>
-            <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                <div class="email">john.doe@example.com</div>
-                <div class="btn-group user-helper-dropdown">
-                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- #User Info -->
-        <!-- Menu -->
-        <div class="menu">
-            <ul class="list">
-                <li class="header">MENU PRINCIPAL</li>
-                <li class="active">
-                    <a href="index.php">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="subtopic=changeLog">
-                        <i class="material-icons">update</i>
-                        <span>Changelogs</span>
-                    </a>
-                </li>
-                <li class="header">NOSSOS PROJETOS</li>
-                <li>
-                    <a href="?subtopic=altPools">
-                        <i class="material-icons col-red">donut_large</i>
-                        <span>AltPools</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="?subtopic=4stake">
-                        <i class="material-icons col-amber">donut_large</i>
-                        <span>4stake</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="?subtopic=RDCT">
-                        <i class="material-icons col-light-blue">donut_large</i>
-                        <span>RDCToken.io</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- #Menu -->
-        <!-- Footer -->
-        <div class="legal">
-            <div class="copyright">
-                &copy; 2017 - 2018 <a href="javascript:void(0);">RDCT Audit System</a>.
-            </div>
-            <div class="version">
-                <b>Version: </b> 0.0.1
-            </div>
-        </div>
-        <!-- #Footer -->
-    </aside>
-</section>
-
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
@@ -135,4 +55,67 @@
         <!-- #END# Widgets -->
     </div>
 </section>
+<?php
+$rss = new DOMDocument();
+$rss->load('https://rdctoken.io/blog/feed/');
+$feed = array();
+foreach ($rss->getElementsByTagName('item') as $node) {
+    $item = array (
+        'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
+        'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
+        'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
+        'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
+    );
+    array_push($feed, $item);
+}
+$limit = 6;
 
+?>
+<section class="content">
+    <div class="container-fluid">
+        <!-- Basic Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Ultimas noticias em nosso blog
+                            <small>Ultimos post em nosso blog, clique aqui e veja todos nossos post's <a href="https://www.rdctoken.io/blog">RDCToken.io/Blog</a></small>
+                        </h2>
+
+                    </div>
+                    <div class="body table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Noticia</th>
+                                <th>Data</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            for($x=1;$x<$limit;$x++) {
+                                $title = str_replace(' & ', ' &amp; ', $feed[$x]['title']);
+                                $link = $feed[$x]['link'];
+                                $description = $feed[$x]['desc'];
+                                $date = date('l F d, Y', strtotime($feed[$x]['date']));
+
+                                echo '<tr>
+                                    <th scope="row">'.$x.'</th>
+                                    <td><p><strong><a href="'.$link.'" title="'.$title.'">'.$title.'</a></strong><br /><p>'.$description.'</p></td>
+                                    <td><small><em> '.$date.'</em></small></p></td>
+                                </tr>
+                                
+                                ';
+
+                            }
+                            ?>
+a                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
