@@ -136,6 +136,28 @@
             </div>
             <!-- #END# Browser Usage -->
         </div>
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div class="card">
+                <div class="header">
+                    <h2>TOTAL DE USUÁRIOS REGISTRADOS</h2>
+                </div>
+                <div class="body">
+                  <div id="grafico_usuarios" style="height:300px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div class="card">
+                <div class="header">
+                    <h2>MASTERNODES ATIVOS</h2>
+                </div>
+                <div class="body">
+                  <div id="grafico_masternodes_ativos" style="height:300px;"></div>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </section>
 <?php
@@ -189,7 +211,7 @@ $limit = 6;
                                     <td><p><strong><a href="'.$link.'" title="'.$title.'">'.$title.'</a></strong><br /><p>'.$description.'</p></td>
                                     <td><small><em> '.$date.'</em></small></p></td>
                                 </tr>
-                                
+
                                 ';
 
                             }
