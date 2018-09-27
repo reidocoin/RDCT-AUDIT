@@ -1,9 +1,20 @@
+<?php
+$getDados = $SQL->query('SELECT * FROM graficos ORDER BY id DESC LIMIT 1');
+foreach($getDados as $getD) {
+    $getInfo = $getD['dados'];
+}
+$getInf = json_decode($getInfo, true);
+$moedas = $getInf['moedas'];
+$countMoedas = count($getInf['moedas']);
+$totalMasternodesAtivos = $getInf['totalMasternodesAtivos'];
+$totalUsuarios = $getInf['totalUsuarios'];
+
+?>
 <section class="content">
     <div class="container-fluid">
         <div class="block-header">
             <h2>Estatisticas 4stake.com</h2>
         </div>
-
         <!-- Widgets -->
         <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -13,7 +24,7 @@
                     </div>
                     <div class="content">
                         <div class="text">Usuarios ativos</div>
-                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                        <div class="number count-to" data-from="0" data-to="<?=$totalUsuarios;?>" data-speed="1000" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>
@@ -24,7 +35,7 @@
                     </div>
                     <div class="content">
                         <div class="text">Masternodes Ativos</div>
-                        <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                        <div class="number count-to" data-from="0" data-to="<?=$totalMasternodesAtivos;?>" data-speed="15" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>
@@ -35,7 +46,7 @@
                     </div>
                     <div class="content">
                         <div class="text">Moedas em Captação</div>
-                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                        <div class="number count-to" data-from="0" data-to="<?=$countMoedas;?>" data-speed="1000" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>
@@ -116,17 +127,18 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                $getRegistros = $SQL->query('SELECT * FROM registros ORDER BY id DESC LIMIT 10');
-                                foreach($getRegistros as $getReg){
-                                    $xR++;
-                                    ?>
-                                    <tr>
-                                        <td><?=$xR;?></td>
-                                        <td><?=$getReg['tipo'];?></td>
-                                        <td><?=$getReg['id'];?></td>
-                                    </tr>
-                                    <?php
-                                }
+
+                                    $iC = 1;
+                                    for ($i = 0; $i < $countMoedas; $i++) {
+                                        ?>
+                                        <tr>
+                                            <td><?=$iC;?></td>
+                                            <td><?=$moedas[$i]["nome"];?></td>
+                                            <td><?=$moedas[$i]["masternodes"];?></td>
+                                        </tr>
+                                        <?php
+                                        $iC++;
+                                    }
                                 ?>
                                 </tbody>
                             </table>
