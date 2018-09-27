@@ -45,14 +45,97 @@
                         <i class="material-icons">attach_money</i>
                     </div>
                     <div class="content">
-                        <div class="text">FEE recebidas</div>
+                        <div class="text">Nº de FEE recebidas</div>
                         <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- #END# Widgets -->
+        <div class="row clearfix">
+            <!-- Task Info -->
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="header">
+                        <h2>Ultimas FEE recebidas</h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover dashboard-task-infos">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>TIPO</th>
+                                    <th>MOEDA</th>
+                                    <th>VALOR</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $getRegistros = $SQL->query('SELECT * FROM registros ORDER BY id DESC LIMIT 10');
+                                foreach($getRegistros as $getReg){
+                                    $xR++;
+                                    ?>
+                                    <tr>
+                                        <td><?=$xR;?></td>
+                                        <td><?=$getReg['id'];?></td>
+                                        <td><?=$getReg['tipo'];?></td>
+                                        <td><?=$getReg['moeda_codigo'];?></td>
+                                        <td><?=$getReg['valor'];?></td>
+                                    </tr>
+
+                                    <?php
+                                }
+                                ?>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Task Info -->
+            <!-- Browser Usage -->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="header">
+                        <h2>MASTERNODES ATIVOS</h2>
+                        <small>Masternodes ativos no sistema 4stake</small>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover dashboard-task-infos">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>MOEDA</th>
+                                    <th>QT</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $getRegistros = $SQL->query('SELECT * FROM registros ORDER BY id DESC LIMIT 10');
+                                foreach($getRegistros as $getReg){
+                                    $xR++;
+                                    ?>
+                                    <tr>
+                                        <td><?=$xR;?></td>
+                                        <td><?=$getReg['tipo'];?></td>
+                                        <td><?=$getReg['id'];?></td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Browser Usage -->
+        </div>
     </div>
 </section>
 <?php
@@ -111,7 +194,7 @@ $limit = 6;
 
                             }
                             ?>
-a                            </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
